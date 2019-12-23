@@ -3,15 +3,20 @@ import {
     SET_PASSWORD,
     SUBMIT_LOGIN,
     ALL_PEOPLES_RECIEVED,
-    SET_IS_LOGIN
+    SET_IS_LOGIN,
+    ALL_PLANETS_RECIEVED,
+    SET_PLANET_SEARCH_STRING,
+    FETCH_PLANETS
 } from "../actions/action";
 
 let initialState = {
     loading: false,
     username: '',
     password: '',
-    loggedIn: false,
-    allPeoples: []
+    loggedIn: true,
+    allPeoples: [],
+    planets: [],
+    planetStr: ''
 }
 const reducer = (state = initialState, action) => {
     if(state === 'undefined') {
@@ -34,6 +39,10 @@ const reducer = (state = initialState, action) => {
             return { ...state, allPeoples: action.payload, loading: false }
         case SET_IS_LOGIN:
             return { ...state, loggedIn: action.payload}
+        case ALL_PLANETS_RECIEVED: return {...state, planets: action.payload, loading: false}
+        case SET_PLANET_SEARCH_STRING: return {...state, planetStr: action.payload}
+        case FETCH_PLANETS:
+            return { ...state, loading: true };
     }
     return state;
 }

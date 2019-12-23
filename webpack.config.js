@@ -7,9 +7,9 @@ module.exports = {
       filename: 'index.bundle.js'
   },
   mode: process.env.NODE_ENV || 'development',
-  resolve: {
-    modules: [path.resolve(__dirname, 'src'), 'node_modules']
-  },
+  // resolve: {
+  //   modules: [path.resolve(__dirname, 'src'), 'node_modules']
+  // },
   devServer: {
     contentBase: path.join(__dirname, 'src')
   },
