@@ -27,8 +27,9 @@ class Search extends React.Component {
         return filteredPlanets;
     }
     render(){
+        const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
         return(
-            this.props.loggedIn? <div>
+            loggedIn? <div>
                 <div id="namer">
                     <div id="namer-input">
                         <input type="text" name="namername" placeholder="Type your search"

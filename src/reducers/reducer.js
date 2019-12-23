@@ -13,7 +13,7 @@ let initialState = {
     loading: false,
     username: '',
     password: '',
-    loggedIn: true,
+    loggedIn: false,
     allPeoples: [],
     planets: [],
     planetStr: ''

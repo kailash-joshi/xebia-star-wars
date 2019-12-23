@@ -13,8 +13,9 @@ class Login extends React.Component {
         this.props.loginUser();
     }
     render(){
+        const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
         return (
-            !this.props.loggedIn ? <div className="login-page">
+            !loggedIn ? <div className="login-page">
                 <div className="form">
                     <div className="login-form">
                         <input type="text" placeholder="username" 

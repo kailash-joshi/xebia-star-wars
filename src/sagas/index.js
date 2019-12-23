@@ -8,6 +8,8 @@ import {
     FETCH_PLANETS
 } from '../actions/action';
 
+import {createHashHistory} from 'history';
+const history = createHashHistory();
 function isUserExist(allPeoples=[], creds={}) {
     const user = allPeoples.filter((people)=>{
         return people.name === creds.username && people.birth_year === creds.password
@@ -32,25 +34,21 @@ function* fetchAllPeoples() {
   yield put({ type: ALL_PEOPLES_RECIEVED, payload: json.results, });
   const creds = yield select(getCredentials);
   const loggedIn = isUserExist(json.results, creds);
+  if(loggedIn) {
+    history.push('/search');
+    localStorage.setItem("username", JSON.stringify(creds.username));
+    localStorage.setItem("loggedIn", JSON.stringify(loggedIn));
+
+  }
   yield put({ type: SET_IS_LOGIN, payload: loggedIn});
 }
 function* actionWatcherLogin() {
      yield takeLatest(SUBMIT_LOGIN, fetchAllPeoples)
 }
 
-
-// const filterPlanets = (planets=[], planetStr='') => {
-//     if (planetStr === '') return []
-//     const planetsTemp = planets.map((planet)=>{
-//         planet.name.includes(planetStr) === true
-//     });
-//     return planetsTemp;
-// }
 function* fetchAllPlanets() {
     const json = yield fetch('https://swapi.co/api/planets/')
           .then(response => response.json(), );    
-    // const planetStr = yield select(getSearchStr);
-    // const planets = filterPlanets(json.results, planetStr);
     yield put({ type: ALL_PLANETS_RECIEVED, payload: json.results, });
   }
   function* actionWatcherSearch() {
