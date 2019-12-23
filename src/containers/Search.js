@@ -1,5 +1,6 @@
 import React from 'react';
 import './search.scss';
+import {connect} from 'react-redux';
 class Search extends React.Component {
     constructor(){
         super();
@@ -9,14 +10,24 @@ class Search extends React.Component {
     }
     render(){
         return(
-            <div id="namer">
+            this.props.loggedIn? <div id="namer">
                 <div id="namer-input">
-                    <input type="text" name="namername" placeholder="Type your name"
+                    <input type="text" name="namername" placeholder="Type your search"
                         onChange={(e)=>this.handleChange}
                     />
                 </div>
-            </div>
+            </div> : null
         )
     }
 }
-export default Search;
+const mapStateToProps = (state) => {
+    return {
+        loggedIn: state.loggedIn
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

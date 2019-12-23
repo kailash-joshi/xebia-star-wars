@@ -1,28 +1,50 @@
 import React from 'react';
 import './login.scss';
+import {connect} from 'react-redux';
+import * as actions from '../actions/action';
 class Login extends React.Component {
-    handleUsernameChange = () => {
-
+    handleUsernameChange = (e) => {
+        this.props.setUsername(e.target.value);
     }
-    handlePasswordChange = () => {
-        
+    handlePasswordChange = (e) => {
+        this.props.setPassword(e.target.value);
+    }
+    handleLogin = () => {
+        this.props.loginUser();
     }
     render(){
         return (
-            <div className="login-page">
+            !this.props.loggedIn ? <div className="login-page">
                 <div className="form">
                     <div className="login-form">
                         <input type="text" placeholder="username" 
                             onChange={this.handleUsernameChange}
+                            value={this.props.username}
                         />
                         <input type="password" placeholder="password"
                             onChange={this.handlePasswordChange}
+                            value={this.props.password}
                         />
-                        <button>login</button>
+                        <button onClick={this.handleLogin}>login</button>
                     </div>
                 </div>
-            </div>
+            </div> : null
         )
     }
 }
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        username: state.username,
+        password: state.password,
+        loggedIn: state.loggedIn
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUsername: (username) => dispatch(actions.setUsername(username)),
+        setPassword: (password) => dispatch(actions.setPassword(password)),
+        loginUser: () => dispatch(actions.loginUser())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
