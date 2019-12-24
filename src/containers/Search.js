@@ -3,9 +3,15 @@ import './search.scss';
 import {connect} from 'react-redux';
 import * as actions from '../actions/action';
 import List from '../components/List';
+import history from '../../history';
+
 class Search extends React.Component {
     constructor(){
         super();
+        const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+        if(!loggedIn){
+            history.push('/login');
+        }
     }
     componentDidMount() {
         this.props.fetchPlanets();

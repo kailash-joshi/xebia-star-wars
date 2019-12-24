@@ -8,8 +8,7 @@ import {
     FETCH_PLANETS
 } from '../actions/action';
 
-import {createHashHistory} from 'history';
-const history = createHashHistory();
+import history from '../../history';
 function isUserExist(allPeoples=[], creds={}) {
     const user = allPeoples.filter((people)=>{
         return people.name === creds.username && people.birth_year === creds.password

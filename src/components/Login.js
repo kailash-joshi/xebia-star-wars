@@ -3,6 +3,13 @@ import './login.scss';
 import {connect} from 'react-redux';
 import * as actions from '../actions/action';
 class Login extends React.Component {
+    constructor(){
+        super();
+        const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+        if(loggedIn){
+            localStorage.setItem("loggedIn", false);
+        }
+    }
     handleUsernameChange = (e) => {
         this.props.setUsername(e.target.value);
     }
